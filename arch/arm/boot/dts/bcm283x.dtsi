@@ -405,7 +405,12 @@
 			clock-names = "core", "pixel";
 			#address-cells = <1>;
 			#size-cells = <0>;
-			status = "disabled";
+
+			port {
+				dpi_out: endpoint@0 {
+					remote-endpoint = <&panel_in>;
+				};
+			};
 		};
 
 		dsi0: dsi@7e209000 {
@@ -627,6 +632,16 @@
 			#clock-cells = <0>;
 			clock-output-names = "otg";
 			clock-frequency = <480000000>;
+		};
+	};
+
+	panel: panel {
+		compatible = "ontat,yx700wv03", "simple-panel";
+
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&dpi_out>;
+			};
 		};
 	};
 };
